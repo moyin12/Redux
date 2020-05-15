@@ -45,4 +45,8 @@ The store consists of the following.
             }
         `
     )
+
+## What will you do if you have more than one reducer?
+    Create a container function for the reducers(root reducer).
+    Then pass in the name of the root reducer into the store as the main reducer.
     
