@@ -36,3 +36,13 @@ The store consists of the following.
     )
 
     The todos function is called a reducer because it takes in the state tree and action and reduces it into a new state.
+
+    Create an updater function to update the state (
+        `
+            const dispatch = (action) => {
+                state = reducer(state, action)
+                listeners.forEach((listener) => listener())
+            }
+        `
+    )
+    

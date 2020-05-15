@@ -1,11 +1,5 @@
-const todos = (state = [], action) => {
-    if (action.type === 'ADD_TODO'){
-        return state.concat([action.todo])
-    }
-    return state
-}
-
-const createStore = () => {
+// Library code
+const createStore = (reducer) => {
 
     // The state
     let state
@@ -21,8 +15,24 @@ const createStore = () => {
         }
     }
 
+    //update the state
+    const dispatch = (action) => {
+        state = reducer(state, action)
+        listeners.forEach((listener) => listener())
+    }
+
     return {
-        getState
+        getState,
+        subscribe,
+        dispatch,
     }
 }
+// App code
+const todos = (state = [], action) => {
+    if (action.type === 'ADD_TODO'){
+        return state.concat([action.todo])
+    }
+    return state
+}
+
 
