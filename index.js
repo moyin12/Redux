@@ -106,83 +106,83 @@ const generateId = () => {
       goals,
   }), Redux.applyMiddleware(checker , logger))
   
-  store.subscribe(() => {
-    const {goals , todos} = store.getState()
+//   store.subscribe(() => {
+//     const {goals , todos} = store.getState()
 
-    document.getElementById('todos').innerHTML = ''
-    document.getElementById('goals').innerHTML = ''
+//     document.getElementById('todos').innerHTML = ''
+//     document.getElementById('goals').innerHTML = ''
     
-    goals.forEach(addGoalToDOM)
-    todos.forEach(addTodoToDOM)
-  })
+//     goals.forEach(addGoalToDOM)
+//     todos.forEach(addTodoToDOM)
+//   })
 
-  // DOM code
-  const addTodo = () => {
-      const input = document.getElementById('todo')
-      const name = input.value 
-      input.value = ''
+//   // DOM code
+//   const addTodo = () => {
+//       const input = document.getElementById('todo')
+//       const name = input.value 
+//       input.value = ''
 
-      store.dispatch(addTodoAction({
-        name,
-        complete: false,
-        id: generateId()
-      }))
-  }
+//       store.dispatch(addTodoAction({
+//         name,
+//         complete: false,
+//         id: generateId()
+//       }))
+//   }
 
-  const addGoal = () => {
-        const input = document.getElementById('goal')
-        const name = input.value 
-        input.value = ''
+//   const addGoal = () => {
+//         const input = document.getElementById('goal')
+//         const name = input.value 
+//         input.value = ''
 
-        store.dispatch(addGoalAction({
-            name,
-            id: generateId()
-        }))
-}
+//         store.dispatch(addGoalAction({
+//             name,
+//             id: generateId()
+//         }))
+// }
 
-document.getElementById('todoBtn')
-.addEventListener('click' , addTodo)
+// document.getElementById('todoBtn')
+// .addEventListener('click' , addTodo)
 
-document.getElementById('goalBtn')
-.addEventListener('click' , addGoal)
+// document.getElementById('goalBtn')
+// .addEventListener('click' , addGoal)
 
-const createRemoveButton = (onClick) => {
-    const removeBtn = document.createElement('button')
-    removeBtn.innerHTML = 'X'
-    removeBtn.addEventListener('click' , onClick)
-    return removeBtn
-}
+// const createRemoveButton = (onClick) => {
+//     const removeBtn = document.createElement('button')
+//     removeBtn.innerHTML = 'X'
+//     removeBtn.addEventListener('click' , onClick)
+//     return removeBtn
+// }
 
-const addTodoToDOM =(todo) =>{
-    const node = document.createElement('li')
-    const text = document.createTextNode(todo.name)
+// const addTodoToDOM =(todo) =>{
+//     const node = document.createElement('li')
+//     const text = document.createTextNode(todo.name)
     
-    const removeBtn = createRemoveButton(() => {
-      store.dispatch(removeTodoAction(todo.id))
-    })
+//     const removeBtn = createRemoveButton(() => {
+//       store.dispatch(removeTodoAction(todo.id))
+//     })
 
-    node.appendChild(text)
-    node.appendChild(removeBtn)
-    node.style.textDecoration = todo.complete ? 'line-through' : 'none'
-    node.addEventListener('click' , () => {
-      store.dispatch(toggleTodoAction(todo.id))
-    })
+//     node.appendChild(text)
+//     node.appendChild(removeBtn)
+//     node.style.textDecoration = todo.complete ? 'line-through' : 'none'
+//     node.addEventListener('click' , () => {
+//       store.dispatch(toggleTodoAction(todo.id))
+//     })
 
-    document.getElementById('todos')
-    .appendChild(node)
-}
+//     document.getElementById('todos')
+//     .appendChild(node)
+// }
 
-const addGoalToDOM =(goal) =>{
-    const node = document.createElement('li')
-    const text = document.createTextNode(goal.name)
+// const addGoalToDOM =(goal) =>{
+//     const node = document.createElement('li')
+//     const text = document.createTextNode(goal.name)
 
-    const removeBtn = createRemoveButton(() => {
-        store.dispatch(removeGoalAction(goal.id))
-    })
+//     const removeBtn = createRemoveButton(() => {
+//         store.dispatch(removeGoalAction(goal.id))
+//     })
 
-    node.appendChild(text)
-    node.appendChild(removeBtn)
+//     node.appendChild(text)
+//     node.appendChild(removeBtn)
 
-    document.getElementById('goals')
-    .appendChild(node)
-}
+//     document.getElementById('goals')
+//     .appendChild(node)
+// }
