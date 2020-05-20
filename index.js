@@ -109,6 +109,18 @@ const generateId = () => {
       })
     }
   }
+
+  const handleInitialData = () => {
+    return (dispatch) => {
+      Promise.all([
+        API.fetchTodos(),
+        API.fetchGoals()
+        ]).then(([ todos, goals ]) => {
+            dispatch(recieveDataAction(todos, goals))
+        })
+    }
+  }
+
   const todos = (state = [], action) => {
     switch(action.type) {
       case ADD_TODO :
