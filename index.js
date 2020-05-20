@@ -53,6 +53,16 @@ const generateId = () => {
     }
   }
 
+  const handleDeleteTodo = (todo) => {
+    return (dispatch) => {
+      dispatch(removeTodoAction(todo.id))
+      return API.deleteTodo(todo.id)
+      .catch(() => {
+          dispatch(addTodoAction(todo))
+          alert('An error occured. Try again.')
+      })
+    }
+  }
   const todos = (state = [], action) => {
     switch(action.type) {
       case ADD_TODO :
@@ -121,11 +131,12 @@ const generateId = () => {
     console.groupEnd()
     return result
   }
+
   const store = Redux.createStore(Redux.combineReducers({
       todos,
       goals,
       loading,
-  }), Redux.applyMiddleware(checker , logger))
+  }), Redux.applyMiddleware(ReduxThunk.default, checker , logger))
   
 //   store.subscribe(() => {
 //     const {goals , todos} = store.getState()
