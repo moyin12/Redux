@@ -52,13 +52,59 @@ const generateId = () => {
       goals,
     }
   }
-
+  const handleAddTodo = (name, cb) => {
+    return (dispatch) => {
+      return API.saveTodo(name)
+      .then((todo) => {
+          dispatch(addTodoAction(todo))
+          cb()
+      })
+      .catch(() => {
+          alert('There was an error, Try Again.')
+      })
+}
+  }
   const handleDeleteTodo = (todo) => {
     return (dispatch) => {
       dispatch(removeTodoAction(todo.id))
       return API.deleteTodo(todo.id)
       .catch(() => {
           dispatch(addTodoAction(todo))
+          alert('An error occured. Try again.')
+      })
+    }
+  }
+
+  const handleToggleTodo = (id) => {
+    return (dispatch) => {
+      dispatch(toggleTodoAction(id))
+      return API.saveTodoToggle(id)
+      .catch(() => {
+          dispatch(toggleTodoAction(id))
+          alert('An error occured, Try again.')
+      })
+    }
+  }
+
+  const handleAddGoal = (name, cb) => {
+    return (dispatch) => {
+      return API.saveGoal(name)
+      .then((goal) => {
+          dispatch(addGoalAction(goal))
+          cb()
+      })
+      .catch(() => {
+          alert('There was an error, Try again.')
+      })
+    }
+  }
+
+  const handleDeleteGoal = (goal) => {
+    return (dispatch) => {
+      dispatch(removeGoalAction(goal.id))
+      return API.deleteGoal(removeGoalAction(goal.id))
+      .catch(() => {
+          dispatch(addGoalAction(goal))
           alert('An error occured. Try again.')
       })
     }

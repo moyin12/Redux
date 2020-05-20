@@ -33,14 +33,10 @@
         class Todos extends React.Component{
             addItem = (e) => {
                 e.preventDefault()
-                return API.saveTodo(this.input.value)
-                .then((todo) => {
-                    this.props.store.dispatch(addTodoAction(todo))
-                    this.input.value= ''
-                })
-                .catch(() => {
-                    alert('There was an error, Try Again.')
-                })
+                this.props.store.dispatch(handleAddTodo(
+                    this.input.value,
+                    () => this.input.value = ''
+                ))
             }
 
             removeItem = (todo) => {
@@ -48,12 +44,7 @@
             }
 
             toggleItem = (id) => {
-                this.props.store.dispatch(toggleTodoAction(id))
-                return API.saveTodoToggle(id)
-                .catch(() => {
-                    this.props.store.dispatch(toggleTodoAction(id))
-                    alert('An error occured, Try again.')
-                })
+                this.props.store.dispatch(handleToggleTodo(id))
             }
 
             render(){
@@ -79,24 +70,14 @@
         class Goals extends React.Component{
             addItem = (e) => {
                 e.preventDefault()
-                return API.saveGoal(this.input.value)
-                .then((goal) => {
-                    this.props.store.dispatch(addGoalAction(goal))
-                    this.input.value = ''
-                })
-                .catch(() => {
-                    alert('There was an error, Try again.')
-                })
-        
+                this.props.store.dispatch(handleAddGoal(
+                    this.input.value,
+                    () => this.input.value = ''
+                ))    
             }
 
             removeItem = (goal) => {
-                this.props.store.dispatch(removeGoalAction(goal.id))
-                return API.deleteGoal(removeGoalAction(goal.id))
-                .catch(() => {
-                    this.props.store.dispatch(addGoalAction(goal))
-                    alert('An error occured. Try again.')
-                })
+                this.props.store.dispatch(handleDeleteGoal(goal))
             }
 
             render(){
