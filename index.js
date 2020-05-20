@@ -8,6 +8,7 @@ const generateId = () => {
   const TOGGLE_TODO = 'TOGGLE_TODO'
   const ADD_GOAL = 'ADD_GOAL'
   const REMOVE_GOAL = 'REMOVE_GOAL'
+  const RECEIVE_DATA = 'RECEIVE_DATA'
   
   const addTodoAction = (todo) => {
     return {
@@ -44,6 +45,14 @@ const generateId = () => {
     }
   }
   
+  const recieveDataAction = (todos, goals) => {
+    return {
+      type: RECEIVE_DATA,
+      todos,
+      goals,
+    }
+  }
+
   const todos = (state = [], action) => {
     switch(action.type) {
       case ADD_TODO :
@@ -53,6 +62,8 @@ const generateId = () => {
       case TOGGLE_TODO :
         return state.map((todo) => todo.id !== action.id ? todo :
           Object.assign({}, todo, { complete: !todo.complete }))
+      case RECEIVE_DATA :
+        return action.todos
       default :
         return state
     }
@@ -64,6 +75,8 @@ const generateId = () => {
         return state.concat([action.goal])
       case REMOVE_GOAL :
         return state.filter((goal) => goal.id !== action.id)
+      case RECEIVE_DATA :
+        return action.goals
       default :
         return state
     }
